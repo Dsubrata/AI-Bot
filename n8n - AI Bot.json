@@ -1,0 +1,143 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi!\nI am Sam. How can I help you?",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -240,
+        -60
+      ],
+      "id": "fb937fd0-a0ac-4f3a-a3d7-d9bd3c2cbe67",
+      "name": "When chat message received",
+      "webhookId": "81bc74b6-8235-46ec-9108-a46f41f7219b"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -20,
+        -60
+      ],
+      "id": "d6c1fd73-06e1-428b-9898-a9d49e264e10",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -20,
+        160
+      ],
+      "id": "06eb9231-a365-43b3-974a-dbd0bab88805",
+      "name": "Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "cQrIbheTIF2zqIqI",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        100,
+        160
+      ],
+      "id": "fde9d967-3887-4fa8-957e-4351cb97c752",
+      "name": "Memory"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
+      "typeVersion": 1,
+      "position": [
+        220,
+        160
+      ],
+      "id": "9fcacf00-c7a6-4f48-b8f8-9c307f630c6f",
+      "name": "SerpAPI",
+      "alwaysOutputData": true,
+      "credentials": {
+        "serpApi": {
+          "id": "lIgdMpNbnSMqSdbl",
+          "name": "SerpAPI account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SerpAPI": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a4bd4581-0ca6-4d98-b899-a890dd638b71",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c922bbc129d5e00a690505859812633ec90d6347d0dd2ed3adc3286971ac32c5"
+  },
+  "id": "wtl9F1Ed9tPxUZcL",
+  "tags": []
+}
